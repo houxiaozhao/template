@@ -17,11 +17,12 @@ import { FileService } from './file.service';
 import ObsClient from 'esdk-obs-nodejs';
 import { v4 as uuidv4 } from 'uuid';
 import mime from 'mime-types';
+import { AuthorizationGuard } from '../auth/authorization.guard';
 
 @ApiTags('文件上传')
 @Controller('file')
 @ApiBearerAuth()
-@UseGuards(JWTAuthGuard)
+@UseGuards(JWTAuthGuard, AuthorizationGuard)
 export class FileController {
   constructor(
     private readonly fileService: FileService,

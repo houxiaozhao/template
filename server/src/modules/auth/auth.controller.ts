@@ -36,6 +36,7 @@ import { UtilService } from '../util/util.service';
 import { ApiErrorCode } from 'src/common/enums/api.error.code.enum';
 import { ApiException } from 'src/common/exceptions/api.exception';
 import { CompanyService } from '../admin/company/company.service';
+import { AuthorizationGuard } from './authorization.guard';
 
 @Controller('auth')
 @ApiTags('用户认证')
@@ -132,7 +133,7 @@ export class AuthController {
     };
   }
 
-  @UseGuards(JWTAuthGuard)
+  @UseGuards(JWTAuthGuard, AuthorizationGuard)
   @ApiOperation({ summary: '用户获取信息' })
   @Get('profile')
   @ApiBearerAuth()

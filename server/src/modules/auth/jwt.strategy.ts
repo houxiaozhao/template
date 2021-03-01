@@ -20,16 +20,17 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   async validate(request, payload) {
     Logger.log('用户验证');
     const user = await this.userService.show(payload.sub);
-    if (user) {
-      return {
-        userid: payload.sub,
-        username: user.username,
-        phone: user.phone,
-        company: user.company,
-      };
-    } else {
+    if (!user) {
       return false;
     }
+    const apis = await this.userService.getUserApis(user._id);
+    return {
+      userid: payload.sub,
+      username: user.username,
+      phone: user.phone,
+      company: user.company,
+      apis,
+    };
   }
 
   // async validate(payload: any) {

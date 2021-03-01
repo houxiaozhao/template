@@ -1,7 +1,7 @@
 export enum ApiErrorCode {
   TIMEOUT = -1, // 系统繁忙
   SUCCESS = 0, // 成功
-
+  FORBIDDEN = 403, // 被拒绝
   BAD_REQUEST = 400, // 参数错误
 
   UNAUTHORIZED = 10000,

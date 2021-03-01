@@ -23,7 +23,7 @@ import { UserPermissionModule } from './modules/permission/permission.module';
 
 import { HomeModule } from './modules/home/home.module';
 import { FileModule } from './modules/file/file.module';
-import { AuthzMiddleware } from './common/middlewares/authorization.middleware';
+// import { AuthzMiddleware } from './common/middlewares/authorization.middleware';
 import { DeviceModule } from './modules/device/device.module';
 const ENV = process.env.NODE_ENV || 'dev';
 @Module({
@@ -58,8 +58,4 @@ const ENV = process.env.NODE_ENV || 'dev';
     },
   ],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthzMiddleware).forRoutes('*');
-  }
-}
+export class AppModule {}

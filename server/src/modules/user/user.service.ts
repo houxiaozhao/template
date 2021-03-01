@@ -20,7 +20,7 @@ export class UserService {
     options.populate = { path: 'roles', select: 'alias' };
     return this.userModel.paginate(querys, options);
   }
-  async show(id: Types.ObjectId | string): Promise<User> {
+  async show(id: Types.ObjectId | string) {
     return this.userModel.findById(id);
   }
   async create(payload: {
@@ -154,6 +154,48 @@ export class UserService {
       },
     ]);
     return user[0].buttons;
+  }
+  async getUserApis(userid: string) {
+    const userapi = (
+      await this.userModel.aggregate([
+        {
+          $match: { _id: Types.ObjectId(userid) },
+        },
+        {
+          $lookup: {
+            from: 'roles',
+            localField: 'roles',
+            foreignField: '_id',
+            as: 'roles',
+          },
+        },
+        {
+          $lookup: {
+            from: 'permissions',
+            localField: 'roles.permissions',
+            foreignField: '_id',
+            as: 'permissions',
+          },
+        },
+        {
+          $lookup: {
+            from: 'apis',
+            localField: 'permissions.apis',
+            foreignField: '_id',
+            as: 'apis',
+          },
+        },
+        {
+          $project: {
+            apis: {
+              method: 1,
+              url: 1,
+            },
+          },
+        },
+      ])
+    )[0];
+    return userapi.apis;
   }
   async verificationCan(userid: string, url: string, method: string) {
     const userapi = (

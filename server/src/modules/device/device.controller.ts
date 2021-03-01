@@ -23,6 +23,7 @@ import { User } from 'src/common/decorator/user.decorator';
 import { UserType } from 'src/common/interfaces/user.interface';
 import { MongoIdPipe } from 'src/common/pipes/mongo-id.pipe';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
+import { AuthorizationGuard } from '../auth/authorization.guard';
 import { JWTAuthGuard } from '../auth/jwt-auth.guard';
 import { DeviceService } from './device.service';
 import { CreateDeviceDto } from './dto/create-device.dto';
@@ -32,7 +33,7 @@ import { UpdateDeviceDto } from './dto/update-device.dto';
 @ApiTags('device管理')
 @ApiBearerAuth()
 @Controller('device')
-@UseGuards(JWTAuthGuard)
+@UseGuards(JWTAuthGuard, AuthorizationGuard)
 export class DeviceController {
   constructor(private readonly deviceService: DeviceService) {}
 

@@ -31,10 +31,11 @@ import { JWTAuthGuard } from 'src/modules/auth/jwt-auth.guard';
 import { User } from 'src/common/decorator/user.decorator';
 import { UserType } from 'src/common/interfaces/user.interface';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
+import { AuthorizationGuard } from '../auth/authorization.guard';
 @ApiTags('角色管理')
 @ApiBearerAuth()
 @Controller('role')
-@UseGuards(JWTAuthGuard)
+@UseGuards(JWTAuthGuard, AuthorizationGuard)
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 

@@ -26,7 +26,6 @@
             style="margin-bottom: 5px"
             size="mini"
             @click="addDataDialog = true"
-            v-buttonid="'xxx'"
           >新增</el-button>
         </div>
       </div>

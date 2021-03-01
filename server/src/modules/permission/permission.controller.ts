@@ -10,12 +10,13 @@ import { trim } from 'lodash';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { PermissionExtendApisDto } from '../admin/permission/dto/permission.dto';
 import { PermissionService } from '../admin/permission/permission.service';
+import { AuthorizationGuard } from '../auth/authorization.guard';
 import { JWTAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('user_permission')
 @ApiTags('用户权限接口')
 @ApiBearerAuth()
-@UseGuards(JWTAuthGuard)
+@UseGuards(JWTAuthGuard, AuthorizationGuard)
 export class PermissionController {
   constructor(private readonly permissionService: PermissionService) {}
 

@@ -25,6 +25,7 @@ import { ApiException } from 'src/common/exceptions/api.exception';
 import { UserType } from 'src/common/interfaces/user.interface';
 import { MongoIdPipe } from 'src/common/pipes/mongo-id.pipe';
 import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
+import { AuthorizationGuard } from '../auth/authorization.guard';
 import { JWTAuthGuard } from '../auth/jwt-auth.guard';
 import {
   CreateUserDto,
@@ -36,7 +37,7 @@ import { UserService } from './user.service';
 @ApiTags('用户管理')
 @ApiBearerAuth()
 @Controller('user')
-@UseGuards(JWTAuthGuard)
+@UseGuards(JWTAuthGuard, AuthorizationGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
