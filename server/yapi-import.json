@@ -1,0 +1,7 @@
+{
+  "type": "swagger",
+  "token": "1a6a8e26ff9cf60cc46b026b35d5e264e906c608263656481c0b33aefa8df7f9",
+  "file": "http://127.0.0.1:3001/doc-json",
+  "merge": "merge",
+  "server": "http://127.0.0.1:3000"
+}
