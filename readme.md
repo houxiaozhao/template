@@ -46,10 +46,11 @@ import { CacheModule } from 'src/common/processors/cache/cache.module';
 - [x] 自定义 user 装饰器 src/common/decorator/user.decorator
 - [x] mongo objectid 示例管道
 - [x] 跨域处理
-- [ ] 文件上传示例
+- [x] 文件上传示例(转存到云服务)
 - [x] redis 缓存
 - [ ] 异常发送邮件提醒
-- [ ] 权限角色管理
+- [x] 权限角色管理
+- [x] 自动生成代码
 
 ## Installation
 
@@ -106,7 +107,7 @@ http://127.0.0.1:3001/doc
 
 ```javascript
 throw new ApiException(
-  "ID无效",
+  'ID无效',
   ApiErrorCode.ID_INVALID,
   HttpStatus.BAD_REQUEST
 );
@@ -119,8 +120,8 @@ throw new ApiException(
 // }
 throw new HttpException(
   {
-    message: "请求参数id 必传",
-    errorCode: "10000",
+    message: '请求参数id 必传',
+    errorCode: '10000',
   },
   HttpStatus.BAD_REQUEST
 );
