@@ -32,10 +32,6 @@ export class AuthorizationGuard implements CanActivate {
       return true;
     }
     const apis = await this.userService.getUserApis(request.user.userid);
-    console.log('routeName', routeName);
-    console.log('api', api);
-    console.log('apis', apis);
-
     if (
       !find(apis, {
         method: request.method,
