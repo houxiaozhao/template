@@ -46,10 +46,10 @@ import { CacheModule } from 'src/common/processors/cache/cache.module';
 - [x] 自定义 user 装饰器 src/common/decorator/user.decorator
 - [x] mongo objectid 示例管道
 - [x] 跨域处理
-- [ ] 文件上传示例
+- [x] 文件上传示例(转存到云服务)
 - [x] redis 缓存
 - [ ] 异常发送邮件提醒
-- [ ] 权限角色管理
+- [x] 权限角色管理
 
 ## Installation
 
