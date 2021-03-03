@@ -115,8 +115,6 @@ export class UserService {
     return toTree(user[0].menus);
   }
   async getUserButton(userid: string) {
-    console.log(userid);
-
     const user = await this.userModel.aggregate([
       {
         $match: { _id: Types.ObjectId(userid) },

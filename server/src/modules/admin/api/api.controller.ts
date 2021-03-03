@@ -54,8 +54,6 @@ export class ApiController {
       const searchRegExp = new RegExp(trim(search), 'i');
       querys.$or = [{ alias: searchRegExp }, { method: searchRegExp }];
     }
-    console.log(querys);
-
     return await this.apiService.index(querys, { page, sort, limit });
   }
 

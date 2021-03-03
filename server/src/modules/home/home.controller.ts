@@ -9,7 +9,6 @@ export class HomeController {
 
   @Get()
   async home() {
-    console.log(this.config.get('database'));
     return 'nestjs app';
   }
 }

@@ -59,8 +59,7 @@ export class CacheConfigService implements CacheOptionsFactory {
       db: this.config.get('redis.db'),
       retry_strategy: this.retryStrategy.bind(this),
     };
-    this.config.get('redis')
-    console.log(redisOptions);
+    this.config.get('redis');
     return {
       store: redisStore,
       ttl: this.config.get('redis.ttl'),

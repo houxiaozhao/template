@@ -6,9 +6,9 @@
 ## 涉及技术框架
 
 - nestjs 服务框架
-- mongoose 操作数据库的库
+- mongo 操作数据库的库
+  - mongoose
   - typegoose 使用类定义数据模型
-  - nestjs-typegoose
   - mongoose-paginate 分页插件
 - jwt 生成验证 token
 - swagger 文档生成

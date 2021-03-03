@@ -19,16 +19,11 @@ export class JwtAdminStrategy extends PassportStrategy(Strategy, 'jwt-admin') {
   }
   async validate(request, payload) {
     Logger.log('管理员验证');
-    let admin = await this.adminService.show(payload.sub);
+    const admin = await this.adminService.show(payload.sub);
     if (admin) {
       return { userid: payload.sub, username: payload.username };
     } else {
       return false;
     }
   }
-
-  // async validate(payload: any) {
-  //   console.log('payload', payload);
-  //   return { userid: payload.sub, username: payload.username };
-  // }
 }

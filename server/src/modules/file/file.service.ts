@@ -26,7 +26,6 @@ export class FileService {
         user.company
       }/${filename}`;
     } catch (error) {
-      console.log(error);
       throw new ApiException(
         '上传出错',
         ApiErrorCode.ERROR_IN_FILE_UPLOAD,
@@ -72,7 +71,7 @@ export class FileService {
     });
   }
   getObjectMetadata(key) {
-    var obsClient = new ObsClient(this.config.get('huawei.obs'));
+    const obsClient = new ObsClient(this.config.get('huawei.obs'));
     const Bucket = this.config.get('huawei.obs.Bucket');
     return new Promise((resolve, reject) => {
       try {

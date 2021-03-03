@@ -37,7 +37,6 @@ export class FileController {
     type: FileUploadDto,
   })
   async uploadFile(@UploadedFile() file, @User() user: UserType) {
-    console.log(file);
     return await this.fileService.upload(file, user);
   }
 
@@ -65,8 +64,6 @@ export class FileController {
     @User() user: UserType,
     @Body() body: createSignedUrlSyncDTO,
   ) {
-    console.log(body);
-
     const filename = body.objectKey
       ? `${user.company}/${uuidv4()}.${body.objectKey.split('.').pop()}`
       : `${user.company}/${uuidv4()}`;
@@ -85,8 +82,6 @@ export class FileController {
       },
       meta,
     );
-    console.log(meta);
-
     const res = obsClient.createPostSignatureSync({
       Expires: 3600,
       FormParams: formParams,
