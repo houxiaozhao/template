@@ -29,15 +29,8 @@
               align-items: center;
             "
           >
-            <img
-              style="height: 103px; width: 336px"
-              :src="`${$baseUrl}image/logo.png`"
-            />
-            <div style="font-size: 36px; color: #fff; margin-top: 20px">
-              <!-- 观颐智能 -->
-            </div>
             <div style="font-size: 36px; color: #fff">
-              无人机大数据智能管理系统
+              管理系统
             </div>
           </div>
           <div
