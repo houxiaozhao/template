@@ -10,8 +10,10 @@ import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
 import { UtilModule } from '../util/util.module';
 import { CompanyModule } from '../admin/company/company.module';
+import { ApiModule } from '../admin/api/api.module';
 @Module({
   imports: [
+    ApiModule,
     UserModule,
     UtilModule,
     CompanyModule,

@@ -7,9 +7,15 @@ import {
 import { find } from 'lodash';
 import { ApiErrorCode } from 'src/common/enums/api.error.code.enum';
 import { ApiException } from 'src/common/exceptions/api.exception';
+import { ApiService } from '../admin/api/api.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthorizationGuard implements CanActivate {
+  constructor(
+    private readonly apiService: ApiService,
+    private readonly userService: UserService,
+  ) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const routeName = request.route.path
@@ -21,8 +27,17 @@ export class AuthorizationGuard implements CanActivate {
         return e;
       })
       .join('/');
+    const api = await this.apiService.getByUrl(routeName);
+    if (!api.verification) {
+      return true;
+    }
+    const apis = await this.userService.getUserApis(request.user.userid);
+    console.log('routeName', routeName);
+    console.log('api', api);
+    console.log('apis', apis);
+
     if (
-      !find(request.user.apis, {
+      !find(apis, {
         method: request.method,
         url: routeName,
       })

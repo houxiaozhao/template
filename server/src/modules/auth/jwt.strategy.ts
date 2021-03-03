@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from 'nestjs-config';
 import { UserService } from '../user/user.service';
+import { ApiService } from '../admin/api/api.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -23,13 +24,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     if (!user) {
       return false;
     }
-    const apis = await this.userService.getUserApis(user._id);
     return {
       userid: payload.sub,
       username: user.username,
       phone: user.phone,
       company: user.company,
-      apis,
     };
   }
 

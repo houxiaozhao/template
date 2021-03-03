@@ -36,4 +36,7 @@ export class ApiService {
       })
       .exec();
   }
+  async getByUrl(url: string): Promise<Api> {
+    return this.apiModel.findOne({ url });
+  }
 }
