@@ -12,7 +12,10 @@
             <el-button
               slot="append"
               icon="el-icon-search"
-              @click="getData"
+              @click="()=>{
+                pagination.page=1;
+                getData()
+              }"
             ></el-button>
           </el-input>
         </div>
@@ -81,16 +84,20 @@
     </div>
     <el-pagination
       style="margin: 15px 0"
-      layout="prev, pager, next, jumper, ->, total"
+      layout="sizes, prev, pager, next, jumper, ->, total"
+      :page-sizes="[5, 10, 20, 30, 40, 50]"
       :page-size="pagination.limit"
       :current-page="pagination.page"
       :total="pagination.totalDocs"
-      @current-change="
-        (e) => {
-          this.pagination.page = e;
+      @size-change="(e)=>{
+          pagination.limit = e;
+          pagination.page = 1;
+          getData()
+      }"
+      @current-change="(e) => {
+          pagination.page = e;
           getData();
-        }
-      "
+      }"
     >
     </el-pagination>
     <el-dialog

@@ -12,7 +12,10 @@
             <el-button
               slot="append"
               icon="el-icon-search"
-              @click="getData"
+              @click="()=>{
+                pagination.page=1;
+                getData()
+              }"
             ></el-button>
           </el-input>
         </div>
@@ -21,12 +24,14 @@
             style="margin-bottom: 5px"
             size="mini"
             @click="getData"
-          >刷新</el-button>
+          >刷新
+          </el-button>
           <el-button
             style="margin-bottom: 5px"
             size="mini"
             @click="addDataDialog = true"
-          >新增</el-button>
+          >新增
+          </el-button>
         </div>
       </div>
     </template>
@@ -68,13 +73,15 @@
                   editDataDialog = true;
                 }
               "
-            >编辑</el-button>
+            >编辑
+            </el-button>
             <el-button
               type="danger"
               size="mini"
               icon="el-icon-delete"
               @click="removeData(scope.row)"
-            >删除</el-button>
+            >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -85,12 +92,15 @@
       :page-size="pagination.limit"
       :current-page="pagination.page"
       :total="pagination.totalDocs"
-      @current-change="
-        (e) => {
-          this.pagination.page = e;
+      @size-change="(e)=>{
+          pagination.limit = e;
+          pagination.page = 1;
+          getData()
+      }"
+      @current-change="(e) => {
+          pagination.page = e;
           getData();
-        }
-      "
+      }"
     >
     </el-pagination>
     <el-dialog
@@ -160,7 +170,7 @@
 
 export default {
   name: 'demo',
-  data () {
+  data() {
     return {
       search: '',
       loading: false,
@@ -181,18 +191,19 @@ export default {
         name: ''
       },
       addRules: {
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        name: [{required: true, message: '请输入名称', trigger: 'blur'}]
       },
       editRules: {
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        name: [{required: true, message: '请输入名称', trigger: 'blur'}]
       }
     }
   },
-  mounted () {
+  mounted() {
     this.getData()
   },
   methods: {
-    getData () {
+    getData() {
+      console.log('获取')
       this.loading = true
       this.$api.get_auth_api({
         page: this.pagination.page,
@@ -211,7 +222,7 @@ export default {
         this.loading = false
       })
     },
-    addData () {
+    addData() {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
           this.$api.post_auth_api({
@@ -234,7 +245,7 @@ export default {
       })
     },
 
-    editData () {
+    editData() {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
           this.$api.put_api_id({
@@ -257,13 +268,13 @@ export default {
         }
       })
     },
-    removeData (data) {
+    removeData(data) {
       this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_api_id({ id: data._id }).then(res => {
+        this.$api.delete_api_id({id: data._id}).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
