@@ -15,7 +15,7 @@ import { ApiException } from '../exceptions/api.exception';
 export class MongoIdPipe implements PipeTransform<string> {
   async transform(value: string, metadata: ArgumentMetadata) {
     try {
-      return Types.ObjectId(value);
+      return new Types.ObjectId(value);
     } catch (error) {
       throw new ApiException(
         'ID无效',

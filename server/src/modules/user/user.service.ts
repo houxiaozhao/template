@@ -72,7 +72,7 @@ export class UserService {
   async getUserMenu(userid: string) {
     const user = await this.userModel.aggregate([
       {
-        $match: { _id: Types.ObjectId(userid) },
+        $match: { _id: new Types.ObjectId(userid) },
       },
       {
         $lookup: {
@@ -117,7 +117,7 @@ export class UserService {
   async getUserButton(userid: string) {
     const user = await this.userModel.aggregate([
       {
-        $match: { _id: Types.ObjectId(userid) },
+        $match: { _id: new Types.ObjectId(userid) },
       },
       {
         $lookup: {
@@ -157,7 +157,7 @@ export class UserService {
     const userapi = (
       await this.userModel.aggregate([
         {
-          $match: { _id: Types.ObjectId(userid) },
+          $match: { _id: new Types.ObjectId(userid) },
         },
         {
           $lookup: {
@@ -199,7 +199,7 @@ export class UserService {
     const userapi = (
       await this.userModel.aggregate([
         {
-          $match: { _id: Types.ObjectId(userid) },
+          $match: { _id: new Types.ObjectId(userid) },
         },
         {
           $lookup: {
