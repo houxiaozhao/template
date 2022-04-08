@@ -18,7 +18,7 @@ export class RoleService {
   async show(
     id: Types.ObjectId | string,
     company: Types.ObjectId | string,
-  ): Promise<Role> {
+  ): Promise<Role | unknown> {
     return this.roleModel
       .findOne({
         _id: id,

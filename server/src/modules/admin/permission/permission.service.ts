@@ -20,11 +20,15 @@ export class PermissionService {
     ];
     return this.permissionModel.paginate(querys, options);
   }
-  async show(id: Types.ObjectId | string): Promise<Permission> {
-    return this.permissionModel
+  async show(id: Types.ObjectId | string): Promise<Permission | null> {
+    const promise = await this.permissionModel
       .findById(id)
       .populate({ path: 'apis', select: 'method url alias' })
       .populate({ path: 'menus', select: '-createdAt -updatedAt' });
+    if (promise) {
+      return promise;
+    }
+    return null;
   }
   async create(payload: Permission): Promise<Permission> {
     return this.permissionModel.create(payload);

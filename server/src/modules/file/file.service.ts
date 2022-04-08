@@ -1,5 +1,5 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import ObsClient = require('esdk-obs-nodejs');
+import ObsClient from 'esdk-obs-nodejs';
 import { ConfigService } from 'nestjs-config';
 import { UserType } from 'src/common/interfaces/user.interface';
 import * as fs from 'fs';
