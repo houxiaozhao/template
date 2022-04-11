@@ -16,7 +16,7 @@ export const databaseProvider = {
   provide: DB_CONNECTION_TOKEN,
   useFactory: async (config: ConfigService) => {
     let reconnectionTask = null;
-    const RECONNET_INTERVAL = 6000;
+    const RECONNET_INTERVAL = 1000;
 
     // // 发送告警邮件
     // const sendAlarmMail = (error: string) => {
@@ -30,11 +30,14 @@ export const databaseProvider = {
 
     // 连接数据库
     function connection() {
-      return mongoose.connect(config.get('database.uri'),config.get('database.options'));
+      return mongoose.connect(
+        config.get('database.uri'),
+        config.get('database.options'),
+      );
     }
 
     mongoose.connection.on('connecting', () => {
-      Logger.log('数据库连接中...')
+      Logger.log('数据库连接中...');
     });
 
     mongoose.connection.on('open', () => {
@@ -48,7 +51,7 @@ export const databaseProvider = {
       reconnectionTask = setTimeout(connection, RECONNET_INTERVAL);
     });
 
-    mongoose.connection.on('error', error => {
+    mongoose.connection.on('error', (error) => {
       Logger.error('数据库发生异常！', error);
       mongoose.disconnect();
       // sendAlarmMail(String(error));

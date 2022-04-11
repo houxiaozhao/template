@@ -78,13 +78,12 @@ export interface ICacheIntervalIOOption<T> extends ICacheIntervalOption<T> {
  */
 @Injectable()
 export class CacheService {
-
   private cache!: ICacheManager;
 
   constructor(@Inject(CACHE_MANAGER) cache: ICacheManager) {
     this.cache = cache;
     this.redisClient.on('ready', () => {
-      Logger.log('Reids 已准备好！')
+      Logger.log('Reids 已准备好！');
     });
   }
 
@@ -104,7 +103,11 @@ export class CacheService {
     return this.cache.get(key);
   }
 
-  public set<T>(key: TCacheKey, value: any, options?: { ttl: number }): TCacheResult<T> {
+  public set<T>(
+    key: TCacheKey,
+    value: any,
+    options?: { ttl: number },
+  ): TCacheResult<T> {
     if (!this.checkCacheServiceAvailable) {
       return Promise.reject('缓存客户端没准备好！');
     }
@@ -127,30 +130,27 @@ export class CacheService {
   promise<T>(options: ICachePromiseOption<T>): TCacheResult<T>;
   promise<T>(options: ICachePromiseIoOption<T>): ICacheIoResult<T>;
   promise(options) {
-
     const { key, promise, ioMode = false } = options;
 
     // 包装任务
     const doPromiseTask = () => {
-      return promise().then(data => {
+      return promise().then((data) => {
         this.set(key, data);
         return data;
-      })
+      });
     };
 
     // Promise 拦截模式（返回死数据）
     const handlePromiseMode = () => {
-      return this.get(key).then(value => {
-        return value !== null && value !== undefined
-          ? value
-          : doPromiseTask();
-      })
+      return this.get(key).then((value) => {
+        return value !== null && value !== undefined ? value : doPromiseTask();
+      });
     };
 
     // 双向同步模式（返回获取器和更新器）
     const handleIoMode = () => ({
       get: handlePromiseMode,
-      update: doPromiseTask
+      update: doPromiseTask,
     });
 
     return ioMode ? handleIoMode() : handlePromiseMode();
@@ -165,12 +165,11 @@ export class CacheService {
   public interval<T>(options: ICacheIntervalOption<T>): TCacheIntervalResult<T>;
   public interval<T>(options: ICacheIntervalIOOption<T>): ICacheIoResult<T>;
   public interval<T>(options) {
-
     const { key, promise, timeout, timing, ioMode = false } = options;
 
     // 包装任务
     const promiseTask = (): Promise<T> => {
-      return promise().then(data => {
+      return promise().then((data) => {
         this.set(key, data);
         return data;
       });
@@ -183,10 +182,12 @@ export class CacheService {
           .then(() => {
             setTimeout(doPromise, timeout.success);
           })
-          .catch(error => {
+          .catch((error) => {
             const time = timeout.error || timeout.success;
             setTimeout(doPromise, time);
-            Logger.warn(`Redis 超时任务执行失败，${time / 1000}s 后重试：${error}`);
+            Logger.warn(
+              `Redis 超时任务执行失败，${time / 1000}s 后重试：${error}`,
+            );
           });
       };
       doPromise();
@@ -196,9 +197,13 @@ export class CacheService {
     if (timing) {
       const doPromise = () => {
         promiseTask()
-          .then(data => data)
-          .catch(error => {
-            Logger.warn(`Redis 定时任务执行失败，${timing.error / 1000}s 后重试：${error}`);
+          .then((data) => data)
+          .catch((error) => {
+            Logger.warn(
+              `Redis 定时任务执行失败，${
+                timing.error / 1000
+              }s 后重试：${error}`,
+            );
             setTimeout(doPromise, timing.error);
           });
       };

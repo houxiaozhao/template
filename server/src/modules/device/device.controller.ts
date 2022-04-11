@@ -26,9 +26,7 @@ import { ParseIntPipe } from 'src/common/pipes/parse-int.pipe';
 import { AuthorizationGuard } from '../auth/authorization.guard';
 import { JWTAuthGuard } from '../auth/jwt-auth.guard';
 import { DeviceService } from './device.service';
-import { CreateDeviceDto } from './dto/create-device.dto';
-import { DeviceDto } from './dto/device.dto';
-import { UpdateDeviceDto } from './dto/update-device.dto';
+import { DeviceDto, CreateDeviceDto, UpdateDeviceDto } from './dto/device.dto';
 
 @ApiTags('device管理')
 @ApiBearerAuth()
@@ -90,7 +88,6 @@ export class DeviceController {
   @Put(':id')
   @ApiOperation({ summary: '更新device' })
   @ApiParam({ name: 'id' })
-  @ApiBody({ type: UpdateDeviceDto })
   @ApiResponse({
     status: 200,
     type: DeviceDto,

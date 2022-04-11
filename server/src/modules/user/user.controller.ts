@@ -76,7 +76,7 @@ export class UserController {
   @Post()
   @ApiOperation({ summary: '创建用户' })
   @ApiBody({
-    type: CreateUserDto,
+    type: () => CreateUserDto,
   })
   @ApiResponse({
     status: 200,

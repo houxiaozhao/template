@@ -34,7 +34,9 @@ async function bootstrap() {
   Logger.log('数据链接：' + config.get('database.uri'));
   Logger.log('启动成功：http://127.0.0.1:' + config.get('common.port'));
   if (config.get('common.node_env') === 'dev') {
-    Logger.log('文档地址：http://127.0.0.1:' + config.get('common.port') + '/doc');
+    Logger.log(
+      '文档地址：http://127.0.0.1:' + config.get('common.port') + '/doc',
+    );
   }
   //   const server = app.getHttpServer();
   //   const router = server._events.request._router;

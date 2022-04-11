@@ -2,9 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PaginateOptions, PaginateResult, Types } from 'mongoose';
 import { MongooseModel } from 'src/common/interfaces/mongoose.interface';
 import { InjectModel } from 'src/common/transformers/model.transformer';
-import { CreateDeviceDto } from './dto/create-device.dto';
-import { DeviceDto } from './dto/device.dto';
-import { UpdateDeviceDto } from './dto/update-device.dto';
+import { DeviceDto, CreateDeviceDto, UpdateDeviceDto } from './dto/device.dto';
 import { Device } from './entities/device.entity';
 
 @Injectable()

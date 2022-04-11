@@ -70,14 +70,14 @@ export class AuthController {
   @UseGuards(CaptchaGuard, LocalAuthGuard)
   @ApiOperation({ summary: '用户登陆' })
   @Post('login')
-  @ApiBody({
-    type: LoginDto,
-  })
+  // @ApiBody({
+  //   type: LoginDto,
+  // })
   @ApiResponse({
     status: 200,
     type: UserinfoDto,
   })
-  async login(@Request() req) {
+  async login(@Request() req, @Body() loginDto: LoginDto) {
     const menus = await this.userService.getUserMenu(req.user.userid);
     const buttons = await this.userService.getUserButton(req.user.userid);
     const company = await this.companyService.show(req.user.company);
