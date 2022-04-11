@@ -8,7 +8,7 @@
       <div style="text-align: center">
         Copyright
         <d2-icon name="copyright" />
-        2020 sensease
+        2020 nest
         <!-- <a href="https://github.com/FairyEver">
               @FairyEver
             </a> -->

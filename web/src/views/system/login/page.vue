@@ -98,11 +98,11 @@
                 <el-checkbox
                   @change="changeRememberPassword"
                   v-model="rememberPassword"
-                  >记住密码</el-checkbox
+                >记住密码</el-checkbox
                 >
               </span>
               <span @click="$router.push({ name: 'resetpassword' })"
-                ><d2-icon name="question-circle" /> 忘记密码</span
+              ><d2-icon name="question-circle"/> 忘记密码</span
               >
             </p>
             <el-button
@@ -118,8 +118,8 @@
         <div class="page-login--content-footer">
           <p class="page-login--content-footer-copyright">
             Copyright
-            <d2-icon name="copyright" />
-            2020 sensease 出品
+            <d2-icon name="copyright"/>
+            2020 nest 出品
             <!-- <a href="https://github.com/FairyEver">
               @FairyEver
             </a> -->
@@ -136,10 +136,12 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import {mapActions} from 'vuex'
 import cookies from './../../../libs/util.cookies'
+import {get__auth_svgCaptacha} from "@/api/用户认证";
+
 export default {
-  data () {
+  data() {
     return {
       formLogin: {
         phone: '',
@@ -151,18 +153,18 @@ export default {
       svg: '',
       rules: {
         phone: [
-          { required: true, message: '请输入手机号', trigger: 'blur' }
+          {required: true, message: '请输入手机号', trigger: 'blur'}
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
+          {required: true, message: '请输入密码', trigger: 'blur'}
         ],
         code: [
-          { required: true, message: '请输入验证码', trigger: 'blur' }
+          {required: true, message: '请输入验证码', trigger: 'blur'}
         ]
       }
     }
   },
-  mounted () {
+  mounted() {
     this.get_auth_svgCaptacha()
     try {
       if (cookies.get('RememberPassword') === 'true') {
@@ -178,20 +180,20 @@ export default {
       console.log(error)
     }
   },
-  beforeDestroy () {
+  beforeDestroy() {
   },
   methods: {
     ...mapActions('d2admin/account', [
       'login'
     ]),
-    get_auth_svgCaptacha () {
-      this.$api.get_auth_svgCaptacha().then(res => {
+    get_auth_svgCaptacha() {
+      get__auth_svgCaptacha().then(res => {
         this.uuid = res.data.uuid
         this.svg = res.data.data.replace(' height="50" ', ' height="38" ')
       })
     },
     // 提交登录信息
-    submit () {
+    submit() {
       console.log(this.formLogin)
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
@@ -219,7 +221,7 @@ export default {
         }
       })
     },
-    changeRememberPassword (e) {
+    changeRememberPassword(e) {
       cookies.set('RememberPassword', e)
     }
   }
@@ -230,6 +232,7 @@ export default {
   position: fixed;
   bottom: 0;
 }
+
 .login-code {
   height: 38px;
   display: block;
@@ -237,9 +240,11 @@ export default {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
+
 .login-code svg {
   height: 38px !important;
 }
+
 .page-login--options {
   margin: 0;
   padding: 0;
@@ -248,9 +253,11 @@ export default {
   margin-bottom: 15px;
   font-weight: 700;
 }
+
 .button-login {
   width: 100%;
 }
+
 .login-from .el-checkbox {
   color: #fff;
 }

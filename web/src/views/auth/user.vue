@@ -329,6 +329,9 @@
 <script>
 import util from '@/libs/util'
 import chooseRole from './choose_role'
+import {get__role} from "@/api/角色管理";
+import {get__user, post__user, put__user_id} from "@/api/用户管理";
+import {delete__api_id} from "@/api/api管理";
 export default {
   name: 'user',
   components: { chooseRole },
@@ -388,7 +391,7 @@ export default {
   methods: {
     get__role () {
       this.loading = true
-      this.$api.get__role({
+      get__role({
         page: 1,
         limit: 10000000
       }).then(res => {
@@ -413,7 +416,7 @@ export default {
     },
     getData () {
       this.loading = true
-      this.$api.get__user({
+      get__user({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search,
@@ -438,7 +441,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__user({
+          post__user({
             phone: this.addDataForm.phone,
             username: this.addDataForm.username,
             password: this.addDataForm.password,
@@ -470,7 +473,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_api_id({ id: data._id }).then(res => {
+        delete__api_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
@@ -490,7 +493,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_user_id({
+          put__user_id({
             id: this.editDataForm._id,
             username: this.editDataForm.username,
             birth: this.editDataForm.birth,

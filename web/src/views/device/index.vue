@@ -165,6 +165,8 @@
 
 <script>
 
+import {delete__device_id, get__device, post__device, put__device_id} from "@/api/device管理";
+
 export default {
   name: 'device',
   data () {
@@ -201,7 +203,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__device({
+      get__device({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -221,7 +223,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__device({
+          post__device({
             name: this.addDataForm.name
           }).then(res => {
             if (res.code === 0) {
@@ -244,7 +246,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_device_id({
+          put__device_id({
             id: this.editDataForm._id,
             name: this.editDataForm.name
           }).then(res => {
@@ -270,7 +272,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_device_id({ id: data._id }).then(res => {
+        delete__device_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {

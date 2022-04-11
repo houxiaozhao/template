@@ -1,7 +1,7 @@
 import { Message, MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
-import api from '@/api'
+import {get__auth_profile, post__auth_login} from "@/api/用户认证";
 
 export default {
   namespaced: true,
@@ -14,7 +14,7 @@ export default {
      * @param {Object} payload route {Object} 登录成功后定向的路由对象 任何 vue-router 支持的格式
      */
     async login ({ dispatch, commit }, { phone = '', password = '', uuid = '', code = '' } = {}) {
-      const res = await api.post_auth_login({ phone, password, uuid, code })
+      const res = await post__auth_login({ phone, password, uuid, code })
       if (res.code === 0) {
         // 设置 cookie 一定要存 uuid 和 token 两个 cookie
         // 整个系统依赖这两个数据进行校验和存储
@@ -85,7 +85,7 @@ export default {
     async load ({ dispatch, commit }) {
       if (util.cookies.get('token')) {
         try {
-          const { data } = await api.get_auth_profile()
+          const { data } = await get__auth_profile()
           await dispatch('d2admin/user/set', data, { root: true })
           commit(
             'd2admin/menu/asideSet',

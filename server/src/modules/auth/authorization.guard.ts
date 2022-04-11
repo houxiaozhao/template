@@ -20,7 +20,7 @@ export class AuthorizationGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const routeName = request.route.path
       .split('/')
-      .map(e => {
+      .map((e) => {
         if (e.startsWith(':')) {
           return `{${e.substr(1)}}`;
         }
@@ -28,9 +28,8 @@ export class AuthorizationGuard implements CanActivate {
       })
       .join('/');
     const api = await this.apiService.getByUrl(routeName);
-    if (!api.verification) {
-      return true;
-    }
+    if (!api) return true;
+    if (!api.verification) return true;
     const apis = await this.userService.getUserApis(request.user.userid);
     if (
       !find(apis, {

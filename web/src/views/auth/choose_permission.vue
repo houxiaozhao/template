@@ -54,6 +54,8 @@
 
 <script>
 
+import {get__user_permission} from "@/api/用户权限接口";
+
 export default {
   name: 'choosePermission',
   props: {
@@ -82,7 +84,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__user_permission({
+      get__user_permission({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search

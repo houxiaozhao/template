@@ -77,7 +77,8 @@
                     <el-button
                       :disabled="!formLogin.phone"
                       @click="get_auth_verificationCode"
-                      >获取验证码</el-button
+                    >获取验证码
+                    </el-button
                     >
                   </template>
                 </el-input>
@@ -120,8 +121,8 @@
         <div class="page-login--content-footer">
           <p class="page-login--content-footer-copyright">
             Copyright
-            <d2-icon name="copyright" />
-            2020 sensease 出品
+            <d2-icon name="copyright"/>
+            2020 nest 出品
             <!-- <a href="https://github.com/FairyEver">
               @FairyEver
             </a> -->
@@ -138,9 +139,11 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import {mapActions} from 'vuex'
+import {get__auth_retrievePassword, get__auth_verificationCode} from "@/api/用户认证";
+
 export default {
-  data () {
+  data() {
     return {
       formLogin: {
         phone: '',
@@ -152,38 +155,38 @@ export default {
       svg: '',
       rules: {
         phone: [
-          { required: true, message: '请输入手机号', trigger: 'blur' }
+          {required: true, message: '请输入手机号', trigger: 'blur'}
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
+          {required: true, message: '请输入密码', trigger: 'blur'}
         ],
         code: [
-          { required: true, message: '请输入验证码', trigger: 'blur' }
+          {required: true, message: '请输入验证码', trigger: 'blur'}
         ]
       }
     }
   },
-  mounted () {
+  mounted() {
   },
-  beforeDestroy () {
+  beforeDestroy() {
   },
   methods: {
     ...mapActions('d2admin/account', [
       'login'
     ]),
-    get_auth_verificationCode () {
+    get_auth_verificationCode() {
       console.log('--')
-      this.$api.get_auth_verificationCode({ phone: this.formLogin.phone }).then(res => {
+      get__auth_verificationCode({phone: this.formLogin.phone}).then(res => {
         console.log(res)
         if (res.code === 0) {
           this.$message.success('验证码已发送至手机')
         }
       })
     },
-    submit () {
+    submit() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.$api.get_auth_retrievePassword(this.formLogin).then(res => {
+          get__auth_retrievePassword(this.formLogin).then(res => {
             if (res.code === 0) {
               this.$message.success('密码修改成功')
               this.$router.back()
@@ -201,6 +204,7 @@ export default {
   position: fixed;
   bottom: 0;
 }
+
 .login-code {
   height: 38px;
   display: block;
@@ -208,9 +212,11 @@ export default {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
+
 .login-code svg {
   height: 38px !important;
 }
+
 .page-login--options {
   margin: 0;
   padding: 0;
@@ -219,6 +225,7 @@ export default {
   margin-bottom: 15px;
   font-weight: 700;
 }
+
 .button-login {
   width: 100%;
 }

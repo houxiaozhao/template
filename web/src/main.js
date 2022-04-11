@@ -32,7 +32,8 @@ Vue.use(d2Admin)
 Vue.prototype.$EventBus = new Vue()
 Vue.prototype.VUE_APP_API = process.env.VUE_APP_API
 
-AMap.plugin('AMap.MoveAnimation')
+// AMap.plugin('AMap.MoveAnimation')
+
 new Vue({
   router,
   store,

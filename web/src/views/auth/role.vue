@@ -194,6 +194,7 @@
 
 <script>
 import choosePermission from './choose_permission'
+import {delete__role_id, get__role, post__role, put__role_id} from "@/api/角色管理";
 
 export default {
   name: 'role',
@@ -235,7 +236,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__role({
+      get__role({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -255,7 +256,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__role({
+          post__role({
             alias: this.addDataForm.alias,
             permissions: this.addDataForm.permissions
           }).then(res => {
@@ -281,7 +282,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_role_id({ id: data._id }).then(res => {
+        delete__role_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
@@ -301,7 +302,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_role_id({
+          put__role_id({
             id: this.editDataForm._id,
             alias: this.editDataForm.alias,
             permissions: this.editDataForm.permissions

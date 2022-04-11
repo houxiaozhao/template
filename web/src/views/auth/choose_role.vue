@@ -54,6 +54,8 @@
 
 <script>
 
+import {get__role} from "@/api/角色管理";
+
 export default {
   name: 'chooseRole',
   props: {
@@ -82,7 +84,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__role({
+      get__role({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
