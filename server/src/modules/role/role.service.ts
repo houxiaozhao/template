@@ -11,7 +11,7 @@ export class RoleService {
   async index(querys, options: PaginateOptions): Promise<PaginateResult<Role>> {
     options.populate = [
       { path: 'permissions', select: 'method url alias verification' },
-      { path: 'menus', select: '-createdAt -updatedAt' },
+      // { path: 'menus', select: '-createdAt -updatedAt' },
     ];
     return this.roleModel.paginate(querys, options);
   }
@@ -25,7 +25,7 @@ export class RoleService {
         company,
       })
       .populate({ path: 'permissions', select: 'method url alias' })
-      .populate({ path: 'menus', select: '-createdAt -updatedAt' });
+      // .populate({ path: 'menus', select: '-createdAt -updatedAt' });
   }
   async create(payload: CreateRoleDto): Promise<RoleDto> {
     return this.roleModel.create(payload);
