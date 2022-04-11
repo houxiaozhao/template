@@ -160,6 +160,8 @@
 
 <script>
 
+import { delete__button_id, get__button, post__button, put__button_id } from '@/api/按钮管理'
+
 export default {
   name: 'demo',
   data () {
@@ -198,7 +200,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__button({
+      get__button({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -218,7 +220,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__button({
+          post__button({
             name: this.addDataForm.name,
             remarks: this.addDataForm.remarks
           }).then(res => {
@@ -244,7 +246,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_button_id({ id: data._id }).then(res => {
+        delete__button_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
@@ -264,7 +266,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_button_id({
+          put__button_id({
             id: this.editDataForm._id,
             name: this.editDataForm.name,
             remarks: this.editDataForm.remarks

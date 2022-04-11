@@ -38,6 +38,8 @@
 
 <script>
 
+import { get__api } from '@/api/api管理'
+
 export default {
   name: 'chooseApi',
   props: {
@@ -66,7 +68,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__api({
+      get__api({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search

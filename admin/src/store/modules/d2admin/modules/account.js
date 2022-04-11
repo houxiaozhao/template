@@ -1,7 +1,7 @@
 import { Message, MessageBox } from 'element-ui'
 import util from '@/libs/util.js'
 import router from '@/router'
-import api from '@/api'
+import { post__adminauth_login } from '@/api/管理员认证'
 
 export default {
   namespaced: true,
@@ -17,7 +17,7 @@ export default {
       username = '',
       password = ''
     } = {}) {
-      const res = await api.post_adminauth_login({ username, password })
+      const res = await post__adminauth_login({ username, password })
       console.log(res)
       // 设置 cookie 一定要存 uuid 和 token 两个 cookie
       // 整个系统依赖这两个数据进行校验和存储

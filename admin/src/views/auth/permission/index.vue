@@ -377,6 +377,8 @@
 <script>
 import chooseApi from './choose_api'
 import chooseButton from './choose_button'
+import { get__menu_menutree } from '@/api/菜单管理'
+import { delete__permission_id, get__permission, post__permission, put__permission_id } from '@/api/权限管理'
 export default {
   name: 'permission',
   components: { chooseApi, chooseButton },
@@ -428,14 +430,14 @@ export default {
       this.addDataForm.menus = this.$refs.tree.getCheckedNodes(false, true)
     },
     getMenuTree () {
-      this.$api.get_menu_menutree().then(res => {
+      get__menu_menutree().then(res => {
         console.log(res.data)
         this.menuTree = res.data
       })
     },
     getData () {
       this.loading = true
-      this.$api.get__permission({
+      get__permission({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -458,7 +460,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_permission_id({ id: data._id }).then(res => {
+        delete__permission_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
@@ -477,7 +479,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__permission({
+          post__permission({
             alias: this.addDataForm.alias,
             apis: this.addDataForm.apis,
             menus: this.addDataForm.menus,
@@ -502,7 +504,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_permission_id({
+          put__permission_id({
             id: this.editDataForm._id,
             alias: this.editDataForm.alias,
             apis: this.editDataForm.apis,

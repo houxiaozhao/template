@@ -281,6 +281,8 @@
 </template>
 
 <script>
+import { delete__menu_id, get__menu, get__menu_menutree, post__menu, put__menu_id } from '@/api/菜单管理'
+
 export default {
   name: 'demo',
   data () {
@@ -340,14 +342,15 @@ export default {
   },
   methods: {
     getMenuTree () {
-      this.$api.get_menu_menutree().then(res => {
+
+      get__menu_menutree().then(res => {
         console.log(res.data)
         this.menuTree = res.data
       })
     },
     getData () {
       this.loading = true
-      this.$api.get__menu({
+      get__menu({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -370,7 +373,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_menu_id({
+        delete__menu_id({
           id: data._id
         }).then(res => {
           if (res.code === 0) {
@@ -392,7 +395,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__menu({
+          post__menu({
             title: this.addDataForm.title, // {string} *
             remarks: this.addDataForm.remarks, // {string} *
             type: this.addDataForm.type, // {string} *
@@ -421,7 +424,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_menu_id({
+          put__menu_id({
             id: this.editDataForm._id,
             title: this.editDataForm.title, // {string} *
             remarks: this.editDataForm.remarks, // {string} *

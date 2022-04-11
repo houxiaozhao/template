@@ -3,7 +3,6 @@
     <div style="margin: 15px 0">
       <el-table :data="data.docs" style="width: 100%" size="mini" stripe>
         <el-table-column prop="alias" label="名称" width="150"></el-table-column>
-        <el-table-column prop="industry.name" label="行业" width="150"></el-table-column>
         <el-table-column label="创建时间">
           <template slot-scope="scope">{{new Date(scope.row.createdAt)|date_format}}</template>
         </el-table-column>
@@ -31,8 +30,10 @@
 
 <script>
 
+import { get__permission } from '@/api/权限管理'
+
 export default {
-  name: 'chooseIndustry',
+  name: 'choosePermission',
   props: {
     choosed: {
       type: Array,
@@ -59,7 +60,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__permission({
+      get__permission({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search

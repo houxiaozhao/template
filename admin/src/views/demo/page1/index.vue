@@ -21,12 +21,14 @@
             style="margin-bottom: 5px"
             size="mini"
             @click="getData"
-          >刷新</el-button>
+          >刷新
+          </el-button>
           <el-button
             style="margin-bottom: 5px"
             size="mini"
             @click="addDataDialog=true"
-          >新增</el-button>
+          >新增
+          </el-button>
         </div>
       </div>
     </template>
@@ -51,12 +53,12 @@
         ></el-table-column>
         <el-table-column label="验证">
           <template slot-scope="scope">
-            {{scope.row.verification?'验证':'不验证'}}
+            {{ scope.row.verification ? '验证' : '不验证' }}
           </template>
         </el-table-column>
         <el-table-column label="创建时间">
           <template slot-scope="scope">
-            {{new Date(scope.row.createdAt)|date_format}}
+            {{ new Date(scope.row.createdAt)|date_format }}
           </template>
         </el-table-column>
         <el-table-column
@@ -68,13 +70,15 @@
               size="mini"
               icon="el-icon-edit"
               @click="()=>{editDataForm=JSON.parse(JSON.stringify(scope.row));editDataDialog=true}"
-            >编辑</el-button>
+            >编辑
+            </el-button>
             <el-button
               type="danger"
               size="mini"
               icon="el-icon-delete"
               @click="removeData(scope.row)"
-            >删除</el-button>
+            >删除
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -153,6 +157,8 @@
 
 <script>
 
+import { delete__api_id, get__api, post__api, put__api_id } from '@/api/api管理'
+
 export default {
   name: 'demo',
   data () {
@@ -176,10 +182,18 @@ export default {
         name: ''
       },
       addRules: {
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        name: [{
+          required: true,
+          message: '请输入名称',
+          trigger: 'blur'
+        }]
       },
       editRules: {
-        name: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        name: [{
+          required: true,
+          message: '请输入名称',
+          trigger: 'blur'
+        }]
       }
     }
   },
@@ -189,7 +203,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__api({
+      get__api({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -209,7 +223,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post_auth_api({
+          post__api({
             name: this.addDataForm.name
           }).then(res => {
             if (res.code === 0) {
@@ -234,7 +248,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_api_id({ id: data._id }).then(res => {
+        delete__api_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
@@ -254,7 +268,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_api_id({
+          put__api_id({
             id: this.editDataForm._id,
             name: this.editDataForm.name
           }).then(res => {

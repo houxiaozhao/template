@@ -164,6 +164,7 @@
 
 <script>
 import choosePermission from './choose_permission'
+import { delete__company_id, get__company, post__company, put__company_id } from '@/api/公司管理'
 export default {
   name: 'demo',
   components: { choosePermission },
@@ -185,7 +186,6 @@ export default {
         level: '',
         address: '',
         postcode: '',
-        industry: {},
         parent: {},
         phone: '',
         username: '',
@@ -199,7 +199,6 @@ export default {
         address: '',
         address2: {},
         postcode: '',
-        industry: {},
         parent: {}
       },
       addRules: {
@@ -210,10 +209,8 @@ export default {
         name: [{ required: true, message: '请输入名称', trigger: 'blur' }],
         level: [{ required: true, message: '请输入等级', trigger: 'blur' }]
       },
-      addChooseIndustryVisible: false,
       addChoosecompanyVisible: false,
       addChoosePermissionVisible: false,
-      editChooseIndustryVisible: false,
       editChoosecompanyVisible: false,
       editChoosePermissionVisible: false,
       companyTree: []
@@ -229,7 +226,7 @@ export default {
     },
     getData () {
       this.loading = true
-      this.$api.get__company({
+      get__company({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -249,7 +246,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__company({
+          post__company({
             name: this.addDataForm.name,
             phone: this.addDataForm.phone,
             username: this.addDataForm.username,
@@ -278,7 +275,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_company_id({ id: data._id }).then(res => {
+        delete__company_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
@@ -298,7 +295,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_company_id({
+          put__company_id({
             id: this.editDataForm._id,
             name: this.editDataForm.name
           }).then(res => {

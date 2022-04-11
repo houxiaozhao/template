@@ -57,6 +57,8 @@
 
 <script>
 
+import { get__button } from '@/api/按钮管理'
+
 export default {
   name: 'chooseButton',
   props: {
@@ -85,7 +87,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__button({
+      get__button({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search

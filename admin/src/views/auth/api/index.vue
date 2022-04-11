@@ -18,13 +18,15 @@
         </div>
         <div>
           <el-button style="margin-bottom: 5px" size="mini" @click="getData"
-            >刷新</el-button
+          >刷新
+          </el-button
           >
           <el-button
             style="margin-bottom: 5px"
             size="mini"
             @click="addDataDialog = true"
-            >新增</el-button
+          >新增
+          </el-button
           >
         </div>
       </div>
@@ -64,14 +66,16 @@
                   editDataDialog = true;
                 }
               "
-              >编辑</el-button
+            >编辑
+            </el-button
             >
             <el-button
               type="danger"
               size="mini"
               icon="el-icon-delete"
               @click="removeData(scope.row)"
-              >删除</el-button
+            >删除
+            </el-button
             >
           </template>
         </el-table-column>
@@ -104,10 +108,10 @@
         </el-form-item>
         <el-form-item label="方法" prop="method">
           <el-select v-model="addDataForm.method" placeholder="请选择">
-            <el-option label="GET" value="GET"> </el-option>
-            <el-option label="POST" value="POST"> </el-option>
-            <el-option label="PUT" value="PUT"> </el-option>
-            <el-option label="DELETE" value="DELETE"> </el-option>
+            <el-option label="GET" value="GET"></el-option>
+            <el-option label="POST" value="POST"></el-option>
+            <el-option label="PUT" value="PUT"></el-option>
+            <el-option label="DELETE" value="DELETE"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="url" prop="url">
@@ -140,10 +144,10 @@
         </el-form-item>
         <el-form-item label="方法" prop="method">
           <el-select v-model="editDataForm.method" placeholder="请选择">
-            <el-option label="GET" value="GET"> </el-option>
-            <el-option label="POST" value="POST"> </el-option>
-            <el-option label="PUT" value="PUT"> </el-option>
-            <el-option label="DELETE" value="DELETE"> </el-option>
+            <el-option label="GET" value="GET"></el-option>
+            <el-option label="POST" value="POST"></el-option>
+            <el-option label="PUT" value="PUT"></el-option>
+            <el-option label="DELETE" value="DELETE"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="url" prop="url">
@@ -167,6 +171,8 @@
 </template>
 
 <script>
+
+import { delete__api_id, get__api, post__api, put__api_id } from '@/api/api管理'
 
 export default {
   name: 'demo',
@@ -197,14 +203,38 @@ export default {
         verification: true // {boolean}
       },
       addRules: {
-        method: [{ required: true, message: '请输入方法', trigger: 'blur' }],
-        url: [{ required: true, message: '请输入url', trigger: 'blur' }],
-        alias: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        method: [{
+          required: true,
+          message: '请输入方法',
+          trigger: 'blur'
+        }],
+        url: [{
+          required: true,
+          message: '请输入url',
+          trigger: 'blur'
+        }],
+        alias: [{
+          required: true,
+          message: '请输入名称',
+          trigger: 'blur'
+        }]
       },
       editRules: {
-        method: [{ required: true, message: '请输入方法', trigger: 'blur' }],
-        url: [{ required: true, message: '请输入url', trigger: 'blur' }],
-        alias: [{ required: true, message: '请输入名称', trigger: 'blur' }]
+        method: [{
+          required: true,
+          message: '请输入方法',
+          trigger: 'blur'
+        }],
+        url: [{
+          required: true,
+          message: '请输入url',
+          trigger: 'blur'
+        }],
+        alias: [{
+          required: true,
+          message: '请输入名称',
+          trigger: 'blur'
+        }]
       }
     }
   },
@@ -214,7 +244,7 @@ export default {
   methods: {
     getData () {
       this.loading = true
-      this.$api.get__api({
+      get__api({
         page: this.pagination.page,
         limit: this.pagination.limit,
         search: this.search
@@ -237,7 +267,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$api.delete_api_id({ id: data._id }).then(res => {
+        delete__api_id({ id: data._id }).then(res => {
           if (res.code === 0) {
             this.getData()
           } else {
@@ -256,7 +286,7 @@ export default {
     addData () {
       this.$refs.addDataForm.validate((valid) => {
         if (valid) {
-          this.$api.post__api({
+          post__api({
             method: this.addDataForm.method,
             url: this.addDataForm.url,
             alias: this.addDataForm.alias,
@@ -281,7 +311,7 @@ export default {
     editData () {
       this.$refs.editDataForm.validate((valid) => {
         if (valid) {
-          this.$api.put_api_id({
+          put__api_id({
             id: this.editDataForm._id,
             method: this.editDataForm.method,
             url: this.editDataForm.url,
@@ -305,7 +335,7 @@ export default {
       })
     },
     changeVerification (item, e) {
-      this.$api.put_api_id({
+      put__api_id({
         id: item._id,
         verification: e
       }).then(res => {
