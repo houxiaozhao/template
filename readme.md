@@ -136,7 +136,7 @@ throw new HttpException(
 npm run yapi
 ```
 
-### api 代码生成(yapi-gen-js-code)
+### ~~api 代码生成(yapi-gen-js-code)~~
 
 使用 yapi-gen-js-code 进行 yapi 的代码生成
 进行了一些调整修改，以适配当前前端代码
@@ -147,6 +147,9 @@ npm run gapi
 ```
 
 生成的代码只需要把需要的部分复制到前端相应的文件中
+
+### api 代码生成
+推荐使用 yapi-to-typescript https://github.com/fjc0k/yapi-to-typescript
 
 ### 权限角色思路
 
